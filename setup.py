@@ -19,5 +19,5 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     python_requires='>=3.7',
-    install_requires=[],
+    install_requires=['cltl.combot', 'emissor'],
 )
