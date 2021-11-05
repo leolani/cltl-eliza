@@ -9,7 +9,8 @@ with open("VERSION", "r") as fh:
 setup(
     name='cltl.eliza',
     version=version,
-    packages=find_namespace_packages(include=['cltl.*']),
+    package_dir={'': 'src'},
+    packages=find_namespace_packages(include=['cltl.*', 'cltl_service.*'], where='src'),
     data_files=[('VERSION', ['VERSION'])],
     url="https://github.com/leolani/cltl-eliza",
     license='MIT License',
