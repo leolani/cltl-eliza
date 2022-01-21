@@ -1,14 +1,13 @@
 import logging
-import uuid
 
-import time
 from cltl.combot.infra.config import ConfigurationManager
 from cltl.combot.infra.event import Event, EventBus
 from cltl.combot.infra.resource import ResourceManager
+from cltl.combot.infra.time_util import timestamp_now
 from cltl.combot.infra.topic_worker import TopicWorker
-from cltl_service.backend.schema import TextSignalEvent
-
 from cltl.eliza.api import Eliza
+from cltl_service.backend.schema import TextSignalEvent
+from emissor.representation.scenario import TextSignal
 
 logger = logging.getLogger(__name__)
 
@@ -58,12 +57,12 @@ class ElizaService:
 
     def _process(self, event: Event[TextSignalEvent]):
         payload = event.payload
-        response = self._eliza.respond(payload.text)
+        response = self._eliza.respond(payload.signal.text)
 
         eliza_event = self._create_payload(response)
         self._event_bus.publish(self._output_topic, Event.for_payload(eliza_event))
 
     def _create_payload(self, response):
-        signal_id = str(uuid.uuid4())
+        signal = TextSignal.for_scenario(None, timestamp_now(), timestamp_now(), None, response)
 
-        return TextSignalEvent.create(signal_id, time.time(), response, [])
+        return TextSignalEvent.create(signal)
