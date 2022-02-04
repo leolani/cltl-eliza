@@ -56,11 +56,11 @@ class ElizaService:
         self._topic_worker = None
 
     def _process(self, event: Event[TextSignalEvent]):
-        payload = event.payload
-        response = self._eliza.respond(payload.signal.text)
+        response = self._eliza.respond(event.payload.signal.text)
 
-        eliza_event = self._create_payload(response)
-        self._event_bus.publish(self._output_topic, Event.for_payload(eliza_event))
+        if response:
+            eliza_event = self._create_payload(response)
+            self._event_bus.publish(self._output_topic, Event.for_payload(eliza_event))
 
     def _create_payload(self, response):
         signal = TextSignal.for_scenario(None, timestamp_now(), timestamp_now(), None, response)
