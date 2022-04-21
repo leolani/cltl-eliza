@@ -6,7 +6,7 @@ from cltl.combot.infra.resource import ResourceManager
 from cltl.combot.infra.time_util import timestamp_now
 from cltl.combot.infra.topic_worker import TopicWorker
 from cltl.eliza.api import Eliza
-from cltl_service.backend.schema import TextSignalEvent
+from cltl.combot.event.emissor import TextSignalEvent
 from emissor.representation.scenario import TextSignal
 
 logger = logging.getLogger(__name__)
