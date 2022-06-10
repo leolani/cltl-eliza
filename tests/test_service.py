@@ -37,7 +37,7 @@ class ElizaServiceTest(unittest.TestCase):
         self.assertEqual("response 0", event.payload.text)
         self.assertRaises(Empty, lambda: events.get(timeout=0.01))
 
-        self.event_bus.publish("inputTopic", Event.for_payload(TextSignalEvent.create("signal id", 1, "bla", [])))
+        self.event_bus.publish("inputTopic", Event.for_payload(TextSignalEvent.for_agent("signal id", 1, "bla", [])))
 
         event = events.get(timeout=1)
         self.assertEqual("TextSignalEvent", event.payload.type)

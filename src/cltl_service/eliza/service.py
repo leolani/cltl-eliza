@@ -66,4 +66,4 @@ class ElizaService:
     def _create_payload(self, response):
         signal = TextSignal.for_scenario(None, timestamp_now(), timestamp_now(), None, response)
 
-        return TextSignalEvent.create(signal)
+        return TextSignalEvent.for_agent(hsignal)
