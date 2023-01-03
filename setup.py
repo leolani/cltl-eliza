@@ -21,4 +21,8 @@ setup(
     long_description_content_type="text/markdown",
     python_requires='>=3.7',
     install_requires=['cltl.combot', 'emissor'],
+    extras_require={
+        "service": [
+            "cltl.emissor-data",
+        ]}
 )
