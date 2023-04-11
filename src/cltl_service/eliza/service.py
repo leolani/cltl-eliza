@@ -95,4 +95,4 @@ class ElizaService:
     def _is_eliza_intention(self, event):
         return (event.metadata.topic == self._intention_topic
                 and hasattr(event.payload, "intentions")
-                and 'eliza' in event.payload.intentions)
+                and any(intention in event.payload.intentions for intention in self._intentions))

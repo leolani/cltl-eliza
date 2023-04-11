@@ -66,7 +66,7 @@ class InitService:
                                          self._event_bus, provides=[self._text_out_topic],
                                          intentions=["init"], intention_topic=self._intention_topic,
                                          resource_manager=self._resource_manager, processor=self._process,
-                                         scheduled=30,
+                                         scheduled=3,
                                          name=self.__class__.__name__)
         self._topic_worker.start().wait()
 
@@ -79,6 +79,11 @@ class InitService:
         self._topic_worker = None
 
     def _process(self, event: Event):
+        if not self._greeting:
+            self._event_bus.publish(self._desire_topic, Event.for_payload(DesireEvent(["initialized"])))
+            logger.info("Initialized without greeting")
+            return
+
         timestamp = timestamp_now()
 
         scheduled_invocation = event is None
