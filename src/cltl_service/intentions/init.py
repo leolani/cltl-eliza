@@ -1,6 +1,7 @@
 import logging
 import random
 import re
+import time
 from typing import Mapping
 
 from cltl.commons.language_data.sentences import GREETING, GOODBYE
@@ -55,6 +56,7 @@ class InitService:
 
         self._topic_worker = None
 
+        self._scenario_id = None
         self._timeout = None
 
     @property
@@ -79,6 +81,14 @@ class InitService:
         self._topic_worker = None
 
     def _process(self, event: Event):
+        scheduled_invocation = event is None
+
+        if not self._scenario_id and scheduled_invocation:
+            return
+
+        if not self._scenario_id:
+            self._await_scenario()
+
         if not self._greeting:
             self._event_bus.publish(self._desire_topic, Event.for_payload(DesireEvent(["initialized"])))
             logger.info("Initialized without greeting")
@@ -86,7 +96,6 @@ class InitService:
 
         timestamp = timestamp_now()
 
-        scheduled_invocation = event is None
         if (scheduled_invocation or self._face_or_keyword(event)) and not self._timeout:
             greeting = random.choice(GREETING) + " " + self._greeting
             self._event_bus.publish(self._text_out_topic, Event.for_payload(self._create_text_signal_event(greeting)))
@@ -119,7 +128,13 @@ class InitService:
             return any(greeting in utterance for greeting in _GREETINGS)
 
     def _create_text_signal_event(self, text: str):
-        scenario_id = self._emissor_client.get_current_scenario_id()
-        signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, text)
+        signal = TextSignal.for_scenario(self._scenario_id, timestamp_now(), timestamp_now(), None, text)
 
         return TextSignalEvent.for_agent(signal)
+
+    def _await_scenario(self):
+        self._scenario_id = self._emissor_client.get_current_scenario_id()
+        while not self._scenario_id:
+            logger.debug("Waiting for scenario")
+            time.sleep(1)
+            self._scenario_id = self._emissor_client.get_current_scenario_id()
