@@ -83,6 +83,7 @@ class InitService:
     def _process(self, event: Event):
         scheduled_invocation = event is None
 
+        self._scenario_id = self._emissor_client.get_current_scenario_id()
         if not self._scenario_id and scheduled_invocation:
             return
 
@@ -133,7 +134,6 @@ class InitService:
         return TextSignalEvent.for_agent(signal)
 
     def _await_scenario(self):
-        self._scenario_id = self._emissor_client.get_current_scenario_id()
         while not self._scenario_id:
             logger.debug("Waiting for scenario")
             time.sleep(1)
