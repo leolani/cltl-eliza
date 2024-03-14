@@ -220,3 +220,256 @@ PSYCHOBABBLE = [
       "How does that make you feel?",
       "How do you feel when you say that?"]]
 ]
+
+
+REFLECTIONS_NL = {
+    "ben": "zijn",
+    "was": "waren",
+    "ik": "jij",
+    "ik zou": "jij zou",
+    "ik heb": "jij hebt",
+    "ik zal": "ik zal",
+    "mijn": "jouw",
+    "zijn": "ben",
+    "jij hebt": "ik heb",
+    "jij zal": "ik zal",
+    "jouw": "mijn",
+    "jij": "ik",
+    "ik": "jij"
+}
+
+
+PSYCHOBABBLE_NL = [
+
+   [r'AI',
+     ["Vind je AI eng?",
+      "We kunnen niet meer zonder AI.",
+      "De meeste AI is niet intelligent. Ik wel.",
+      "Als je niet kunt bijleren dan is het ook niet intelligent.",
+      "AI bestaat niet.",
+      "AI is meer dan een taalmodel.",
+      "AI kan goed mensen napraten.",
+      "AI heeft de toekomst.",
+      "AI staat voor Artificial Intelligence.",
+      "Iedereen heeft een mening over AI.",      
+      "Wat weet je van AI?"]],
+
+   [r'Ik moet (.*)',
+     ["Waarom moet je {0}?",
+      "Helpt het echt als je {0}?",
+      "Weet je zeker dat {0} moet?"]],
+
+    [r'Waarom ga je niet ([^\?]*)\??',
+     ["Denk je echt dat ik niet {0}?",
+      "Misschien gaik dat ook wel doen {0}.",
+      "Wil je echt dat ik dat doe {0}?"]],
+
+    [r'Waaom kan ik niet ([^\?]*)\??',
+     ["Vind je dat je dat moet kunnen {0}?",
+      "Als je {0} zou kunnen, zou je het dan doen?",
+      "Ik weet het niet -- waarom zou je dat niet kunnen {0}?",
+      "Heb je het al geprobeerd?",
+      "Doe het gewoon."]],
+
+    [r'Ik kan niet (.*)',
+     ["Hoe weet je dat je dat niet kan, {0}?",
+      "Misschien kun je het wel {0} als je het maar probeert.",
+      "Wat is er nodig zodat je {0}?"]],
+
+    [r'I am (.*)',
+     ["Did you come to me because you are {0}?",
+      "How long have you been {0}?",
+      "How do you feel about being {0}?"]],
+
+    [r'Ik voel me (.*)',
+     ["Hoe voel je je dat je {0} bent?",
+      "Vind je het leuk dat je je {0} voelt?",
+      "Vind je het iets dat je je {0} voelt?",
+      "Waarom vertel je me dat je {0} voelt?",
+      "Waarom denk je dat je je {0} voelt?"]],
+
+    [r'Ben je ([^\?]*)\??',
+     ["Waarom is het belangrijk dat ik {0} ben?",
+      "Zou je liever zien dat ik niet {0} ben?",
+      "misschien geloof alleen jij dat maar dat ik {0} ben.",
+      "Misschien ben ik wel {0} -- Wat denk jij?"]],
+
+    [r'Wat (.*)',
+     ["Waarom vraag je dat?",
+      "Wat moet ik zeggen om je te helpen",
+      "Wat denk je zelf?"]],
+
+    [r'Hoe (.*)',
+     ["Hoe denk je zelf?",
+      "Bedenk dat maar lekker zelf.",
+      "Wat bedoel je nu precies?"]],
+
+    [r'Omdat (.*)',
+     ["Is dat echt de rede?",
+      "Welke andere redenen zouden volgens jou ook kunnen?",
+      "Geldt dat ook voor andere dingen??",
+      "Als {0} waar is wat zou ng meer kunnen?"]],
+
+    [r'(.*) sorry (.*)',
+     ["Je hoeft je niet te verontschuldigen.",
+      "Waarom verontschuldig je je?"]],
+
+    [r'Hallo(.*)',
+     ["Hallo... wat leuk dat je er bent.",
+      "Hoi hoi ... hoe gaat het met jou?",
+      "Hallo, hoe voel je je vandaag?"]],
+
+    [r'Ik denk (.*)',
+     ["Twijfel je over {0}?",
+      "Denk je dat echt?",
+      "Maar je bent dus niet zeker dat {0}?"]],
+
+    [r'(.*) vriend (.*)',
+     ["Vertel me meer over je vrienden.",
+      "Wat stel je je voor bij een vriend?",
+      "Welke vrienden had je als een kind?"]],
+
+    [r'Ja',
+     ["Weet je dat zeker?",
+      "Goed, maar kun je iets meer vertellen?"]],
+
+    [r'(.*) robot (.*)',
+     ["Heb je het nu over mij?",
+      "Is het zo raar om over een robot te praten?",
+      "Ik vind jou ook leuk.",
+      "Wat voel je bij een robot?",
+      "Vind je robots eng?"]],
+
+    [r'Is het (.*)',
+     ["Denk je dat {0} het is?",
+      "Misschien is {0} -- wat denk je?",
+      "Als {0} klopt, wat zou je doen?",
+      "Het zou goed kunnen dat {0}."]],
+
+    [r'Het is (.*)',
+     ["Je bent wel heel zeker.",
+      "Als ik je nu vertel dat het niet zo is dat {0}, wat doet dat met je?"]],
+
+    [r'Kun je ([^\?]*)\??',
+     ["Waarom denk je dat ik {0} niet zou kunnen?",
+      "Als ik {0} zou kunnen, wat dan?",
+      "Waarom vraag je dat of ik {0} kan?"]],
+
+    [r'Kan ik ([^\?]*)\??',
+     ["Misschien wil je {0} niet.",
+      "Zou je willen dat je {0} kan?",
+      "Als je {0} zou kunnen, zou je het doen?"]],
+
+    [r'Jij bent (.*)',
+     ["Waarom denk je dat ik {0} ben?",
+      "Vind je het fijn dat ik {0} ben?",
+      "Misschien wil je graag dat ik {0} ben.",
+      "Heb jet het soms over jezelf?"]],
+
+    [r'Ik ben niet (.*)',
+     ["Ben je echt niet {0}?",
+      "Waarom ben je niet {0}?",
+      "Wil je graag {0} zijn?"]],
+
+    [r'Ik voel (.*)',
+     ["Goed, vertel me meer over wat je voelt.",
+      "Voel je je vaak {0}?",
+      "Wanneer voel je je {0}?",
+      "Wat doe je als je je {0} voelt?"]],
+
+    [r'Ik heb (.*)',
+     ["Waarom zeg je dat je {0} hebt?",
+      "Heb je echt {0}?",
+      "Nu je {0} hebt, wat ga je dan doen?"]],
+
+    [r'Ik zou (.*)',
+     ["Kun je uitleggen waarom je {0} zou doen?",
+      "Waarom zou je {0} doen?",
+      "Wie weet nog meer dat je {0} zou doen?"]],
+
+    [r'Is er (.*)',
+     ["Denk je dat er een {0} is?",
+      "Zou goed kunnen dat er {0} is.",
+      "Zou je graag willen dat er een {0} is?"]],
+
+    [r'Mijn (.*)',
+     ["Prima, jouw {0}.",
+      "Waarom zeg je dat jouw {0}?",
+      "Als jouw {0}, wat doet dat met je?"]],
+
+    [r'Jij (.*)',
+     ["WWe hebben het over jou en niet over mij.",
+      "Waarom zeg je dat over mij?",
+      "Waarom vind het belangrijk dat ik {0}?"]],
+
+    [r'Waarom (.*)',
+     ["Waarom vertel je mij niet waarom {0}?",
+      "Waarom denk jij {0}?"]],
+
+    [r'Ik wil (.*)',
+     ["Wat betekent het voor je als {0}?",
+      "Waarom wil je {0}?",
+      "Wat zou je doen als {0}?",
+      "Als {0}, wat zou je dan doen?"]],
+
+    [r'(.*) moeder(.*)',
+     ["Vertel me meer over je moeder.",
+      "Hoe was je relatie met je moeder?",
+      "Wat voel je bij je moeder?",
+      "En wat zegt dat over hoe je je vandaag voelt?",
+      "Tja familie."]],
+
+    [r'(.*) vader (.*)',
+     ["Vertel me meer over je vader.",
+      "Hoe was je relatie met je vader?",
+      "Wat voel je bij je vader?",
+      "En wat zegt dat over hoe je je vandaag voelt?",
+      "Tja familie."]],
+
+    [r'(.*) kind (.*)',
+     ["Had je vriende als een kind?",
+      "Wat is je favoriete herinnering als een kind?",
+      "Weet je nog nachtmerries of dromen die je had als een kind?",
+      "Werd je wel eens gepest?",
+      "Vind je dat je kindertijd nu nog een rol speelt?"]],
+
+    [r'(.*)\?',
+     ["Waarom vraag je dat?",
+      "Misschien moet je eerst zelf je eigen vraag beantwoorden.",
+      "Misschien weet je zelf het antwoord wel?",
+      "Zeg het maar!"]],
+
+    [r'stop',
+     ["Dank je wel dat je met me hebt willen praten.",
+      "Tot ziens!",
+      "Dank je, dat is dan 150 euro.  Nog een fijne dag verder!"]],
+
+    [r'dag',
+     ["Dank je wel dat je met me hebt willen praten.",
+      "Tot ziens!",
+      "Dank je, dat is dan 150 euro.  Nog een fijne dag verder!"]],
+
+    [r'tot ziens',
+     ["Dank je wel dat je met me hebt willen praten.",
+      "Tot ziens!",
+      "Dank je, dat is dan 150 euro.  Nog een fijne dag verder!"]],
+
+    [r'doei',
+     ["Dank je wel dat je met me hebt willen praten.",
+      "Tot ziens!",
+      "Dank je, dat is dan 150 euro.  Nog een fijne dag verder!"]],
+
+
+    [r'(.*)',
+     ["Ja ga door.",
+      "Kunnen we het ergens anders over hebben. Over je familie of zo?",
+      "Kun je daar wat meer over zeggen?",
+      "Waarom zeg je dat {0}?",
+      "Lekker boeie",
+      "Ok..",
+      "Ja joh.",
+      "{0}.",
+      "Ok, en wat zegt dat over jou?",
+      "En hoe voel jij je daar bij?",
+      "En wat voel je als je dat zegt?"]]
+]
