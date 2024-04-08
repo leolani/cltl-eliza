@@ -7,16 +7,20 @@ from cltl.eliza.api import Eliza
 
 NAME = "Eliza"
 GREETING = f"Hello. I am {NAME}. I am your personal therapist and your best friend. How are you feeling today?"
-LANG = "EN"
+GREETING_NL = f"Hoi. Ik ben {NAME}. Ik ben je maatje. Hoe gaat het met je?"
 
 class ElizaImpl(Eliza):
-    def __init__(self):
+    def __init__(self, lang="nl"):
+        self._lang = lang
         self.started = False
 
     def respond(self, statement: str) -> str:
         if not statement and not self.started:
             self.started = True
-            return GREETING
+            if self._lang=="nl":
+                return GREETING_NL
+            else:
+                return GREETING
 
         if not statement:
             # TODO
@@ -27,7 +31,7 @@ class ElizaImpl(Eliza):
     def _reflect(self, fragment):
         tokens = fragment.lower().split()
         for i, token in enumerate(tokens):
-            if LANG=="NL":
+            if self._lang=="nl":
                 if token in lang.REFLECTIONS_NL:
                     tokens[i] = lang.REFLECTIONS_NL[token]
             else:
@@ -36,7 +40,7 @@ class ElizaImpl(Eliza):
         return ' '.join(tokens)
 
     def _analyze(self, statement):
-        if LANG=="NL":
+        if self._lang=="nl":
             for pattern, responses in lang.PSYCHOBABBLE_NL:
                 match = re.match(pattern, statement.rstrip(".!").lower())
                 if match:
