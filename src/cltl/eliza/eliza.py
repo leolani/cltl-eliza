@@ -39,16 +39,18 @@ class ElizaImpl(Eliza):
                     tokens[i] = lang.REFLECTIONS[token]
         return ' '.join(tokens)
 
+
+
     def _analyze(self, statement):
+        babble=lang.PSYCHOBABBLE
         if self._lang=="nl":
-            for pattern, responses in lang.PSYCHOBABBLE_NL:
-                match = re.match(pattern, statement.rstrip(".!").lower())
-                if match:
+            babble=lang.PSYCHOBABBLE_NL
+        for patterns, responses in babble:
+            for pattern in patterns:
+                if pattern.lower() in statement.lower():
                     response = random.choice(responses)
-                    return response.format(*[self._reflect(g) for g in match.groups()])
-        else:
-            for pattern, responses in lang.PSYCHOBABBLE:
-                match = re.match(pattern, statement.rstrip(".!").lower())
+                    return response.format(self._reflect(response))
+                match = re.match(pattern, statement.rstrip(".!"))
                 if match:
                     response = random.choice(responses)
                     return response.format(*[self._reflect(g) for g in match.groups()])
