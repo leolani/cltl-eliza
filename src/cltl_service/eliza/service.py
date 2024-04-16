@@ -31,17 +31,17 @@ class ElizaService:
         desire_topic = config.get("topic_desire") if "topic_desire" in config else None
         intentions = config.get("intentions", multi=True) if "intentions" in config else []
 
-
+        language = config.get("language")
         return cls(input_topic, output_topic,
                    intention_topic, desire_topic, intentions,
-                   eliza, emissor_client, event_bus, resource_manager)
+                   eliza, emissor_client, event_bus, resource_manager, language)
 
     def __init__(self, input_topic: str, output_topic: str,
                  intention_topic: str, desire_topic: str, intentions: List[str],
                  eliza: Eliza, emissor_client: EmissorDataClient,
-                 event_bus: EventBus, resource_manager: ResourceManager):
+                 event_bus: EventBus, resource_manager: ResourceManager, language: str):
         self._eliza = eliza
-
+        self._eliza._lang = language 
         self._event_bus = event_bus
         self._resource_manager = resource_manager
         self._emissor_client = emissor_client
