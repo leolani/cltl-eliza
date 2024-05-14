@@ -60,7 +60,11 @@ class ElizaService:
         return None
 
     def start(self, timeout=30):
-        self._topic_worker = TopicWorker([self._input_topic, self._intention_topic], self._event_bus,
+        topics = [self._input_topic]
+        if self._intention_topic:
+            topics.append(self._intention_topic)
+
+        self._topic_worker = TopicWorker(topics, self._event_bus,
                                          provides=[self._output_topic],
                                          intention_topic=self._intention_topic, intentions=self._intentions,
                                          resource_manager=self._resource_manager, processor=self._process,
