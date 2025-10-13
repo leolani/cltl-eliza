@@ -3,6 +3,7 @@ from typing import List
 
 from cltl.combot.infra.config import ConfigurationManager
 from cltl.combot.infra.event import Event, EventBus
+from cltl.combot.infra.event.util import extract_scenario_id
 from cltl.combot.infra.resource import ResourceManager
 from cltl.combot.infra.time_util import timestamp_now
 from cltl.combot.infra.topic_worker import TopicWorker
@@ -81,17 +82,21 @@ class ElizaService:
 
     def _process(self, event: Event[TextSignalEvent]):
         if self._is_eliza_intention(event):
-            greeting_payload = self._create_payload(self._eliza.respond(None))
+            greeting_payload = self._create_payload(self._eliza.respond(None), event)
             self._event_bus.publish(self._output_topic, Event.for_payload(greeting_payload))
         elif event.metadata.topic == self._input_topic:
             response = self._eliza.respond(event.payload.signal.text)
 
             if response:
-                eliza_event = self._create_payload(response)
+                eliza_event = self._create_payload(response, event)
                 self._event_bus.publish(self._output_topic, Event.for_payload(eliza_event))
 
-    def _create_payload(self, response):
-        scenario_id = self._emissor_client.get_current_scenario_id()
+    def _create_payload(self, response, input_event):
+        scenario_id = extract_scenario_id(input_event)
+        if not scenario_id:
+            logger.warning("No scenario_id found in event, cannot create response")
+            return None
+
         signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, response)
 
         return TextSignalEvent.for_agent(signal)
