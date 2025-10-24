@@ -55,7 +55,7 @@ PSYCHOBABBLE = [
     [[r'[Ww]hen'],
      ["The Human Language Technology presentation is at 2pm, the Text Mining presentation is at 1pm.  Don't be late!"]],
       
-    [[r'[where'],
+    [[r'[Ww]here'],
      ["The Human Language Technology presentation is in room KC-07,  and the Text Mining presentation is in room 1A43."]],
 
    [[r'I need (.*)'],
