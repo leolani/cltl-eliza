@@ -20,8 +20,7 @@ CONTENT_TYPE_SEPARATOR = ';'
 
 class ElizaService:
     @classmethod
-    def from_config(cls, eliza: Eliza, emissor_client: EmissorDataClient,
-                    event_bus: EventBus, resource_manager: ResourceManager,
+    def from_config(cls, eliza: Eliza, event_bus: EventBus, resource_manager: ResourceManager,
                     config_manager: ConfigurationManager):
         config = config_manager.get_config("cltl.eliza")
 
@@ -35,17 +34,15 @@ class ElizaService:
         language = config.get("language")
         return cls(input_topic, output_topic,
                    intention_topic, desire_topic, intentions,
-                   eliza, emissor_client, event_bus, resource_manager, language)
+                   eliza, event_bus, resource_manager, language)
 
     def __init__(self, input_topic: str, output_topic: str,
                  intention_topic: str, desire_topic: str, intentions: List[str],
-                 eliza: Eliza, emissor_client: EmissorDataClient,
-                 event_bus: EventBus, resource_manager: ResourceManager, language: str):
+                 eliza: Eliza, event_bus: EventBus, resource_manager: ResourceManager, language: str):
         self._eliza = eliza
         self._eliza._lang = language 
         self._event_bus = event_bus
         self._resource_manager = resource_manager
-        self._emissor_client = emissor_client
 
         self._input_topic = input_topic
         self._output_topic = output_topic
@@ -82,15 +79,18 @@ class ElizaService:
 
     def _process(self, event: Event[TextSignalEvent]):
         if self._is_eliza_intention(event):
-            greeting_payload = self._create_payload(self._eliza.respond(None), event.metadata.scenario_id)
-            self._event_bus.publish(self._output_topic, Event.for_payload(greeting_payload))
+            pass
+            # TODO add scenario_id to intentions
+            # scenario_id = extract_scenario_id(event)
+            # greeting_payload = self._create_payload(self._eliza.respond(None), scenario_id)
+            # self._event_bus.publish(self._output_topic, Event.for_payload(greeting_payload))
         elif event.metadata.topic == self._input_topic:
             response = self._eliza.respond(event.payload.signal.text)
 
             if response:
                 scenario_id = extract_scenario_id(event)
                 eliza_event = self._create_payload(response, scenario_id)
-                self._event_bus.publish(self._output_topic, Event.for_payload(eliza_event, scenario_id))
+                self._event_bus.publish(self._output_topic, Event.for_payload(eliza_event, source=event))
 
     def _create_payload(self, response, scenario_id):
         signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, response)
