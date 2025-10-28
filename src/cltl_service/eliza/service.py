@@ -79,11 +79,9 @@ class ElizaService:
 
     def _process(self, event: Event[TextSignalEvent]):
         if self._is_eliza_intention(event):
-            pass
-            # TODO add scenario_id to intentions
-            # scenario_id = extract_scenario_id(event)
-            # greeting_payload = self._create_payload(self._eliza.respond(None), scenario_id)
-            # self._event_bus.publish(self._output_topic, Event.for_payload(greeting_payload))
+            scenario_id = extract_scenario_id(event)
+            greeting_payload = self._create_payload(self._eliza.respond(None), scenario_id)
+            self._event_bus.publish(self._output_topic, Event.for_payload(greeting_payload))
         elif event.metadata.topic == self._input_topic:
             response = self._eliza.respond(event.payload.signal.text)
 
