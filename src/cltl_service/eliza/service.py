@@ -81,7 +81,7 @@ class ElizaService:
         if self._is_eliza_intention(event):
             scenario_id = extract_scenario_id(event)
             greeting_payload = self._create_payload(self._eliza.respond(None), scenario_id)
-            self._event_bus.publish(self._output_topic, Event.for_payload(greeting_payload))
+            self._event_bus.publish(self._output_topic, Event.for_payload(greeting_payload, source=event))
         elif event.metadata.topic == self._input_topic:
             response = self._eliza.respond(event.payload.signal.text)
 
